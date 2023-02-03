@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
+import React,{createContext,useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+
+import AuthLogin from './Navegacion/AuthLogin.js';
+import AuthHome from './Navegacion/AuthHome.js';
+
+
+
+import { NavigationContainer } from '@react-navigation/native';
+
+
+export const ContextLogin = createContext();
+
 export default function App() {
+  const [Usuario,setUsuario] = useState('');
+  
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <NavigationContainer> 
+        <ContextLogin.Provider value={{setUsuario:setUsuario,Usuario}}>
+          {Usuario ? <AuthHome/> : <AuthLogin/> }
+        </ContextLogin.Provider>
+      </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
